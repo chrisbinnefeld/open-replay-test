@@ -1,0 +1,8 @@
+{
+  "name": "OpenReplayTest",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "2a24c165"
+}
