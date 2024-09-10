@@ -30,7 +30,9 @@
     "ionicons": "^7.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.14.2"
+    "zone.js": "~0.14.2",
+    "@openreplay/tracker": "14.0.6",
+    "@openreplay/tracker-assist": "9.0.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^18.0.0",

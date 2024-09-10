@@ -1,8 +1,7 @@
-import { Component, inject } from '@angular/core';
-import { RefresherCustomEvent } from '@ionic/angular';
-import { MessageComponent } from '../message/message.component';
-
-import { DataService, Message } from '../services/data.service';
+import { Component, ViewChild } from '@angular/core';
+import { IonModal } from '@ionic/angular';
+import { OverlayEventDetail } from '@ionic/core/components';
+import { OpenReplayService } from '../open-replay.service';
 
 @Component({
   selector: 'app-home',
@@ -10,16 +9,31 @@ import { DataService, Message } from '../services/data.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  private data = inject(DataService);
-  constructor() {}
+  @ViewChild(IonModal) modal: IonModal | null = null;
 
-  refresh(ev: any) {
-    setTimeout(() => {
-      (ev as RefresherCustomEvent).detail.complete();
-    }, 3000);
+  constructor(protected readonly openReplayService: OpenReplayService) {}
+
+  message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
+  name: string | null = null;
+
+  cancel() {
+    if(this.modal) {
+      this.modal.dismiss(null, 'cancel');
+    }
+    
   }
 
-  getMessages(): Message[] {
-    return this.data.getMessages();
+  confirm() {
+    if(this.modal) {
+      this.modal.dismiss(this.name, 'confirm');
+    }
+    
+  }
+
+  onWillDismiss(event: Event) {
+    const ev = event as CustomEvent<OverlayEventDetail<string>>;
+    if (ev.detail.role === 'confirm') {
+      this.message = `Hello, ${ev.detail.data}!`;
+    }
   }
 }
